@@ -66,4 +66,13 @@ function longestCommonSubStr(str1, str2) {
 	return longest;
 }
 
-//
+/*
+Write a function that takes an array of integers and returns 
+their sum. Use recursion.
+*/
+
+function sumRec(arr) {
+	if (!arr.length) return 0;
+	let val = arr.pop();
+	return sumRec(arr) + val;
+}
