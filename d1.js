@@ -14,3 +14,30 @@ function digitalRoot(num) {
 	}
 	return digitalRoot(result + num);
 }
+
+//Write a function that takes a message and an increment
+// amount and outputs the same letters shifted by that
+// amount in the alphabet. Assume lowercase and no punctuation.
+// Preserve spaces.
+
+function caesarCipher(str, shift) {
+	let result = '';
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] === ' ') {
+			result += ' ';
+		} else {
+			result +=  shiftChar(str[i], shift);
+		}
+	}
+	return result;
+}
+
+
+function shiftChar(c, shift) {
+	let charCodeAt = c.charCodeAt();
+	if (charCodeAt < 97) {
+		return String.fromCharCode(((charCodeAt - 65 + shift) % 26 + 65)); 
+	} else {
+		return String.fromCharCode(((charCodeAt - 97 + shift) % 26 + 97));
+	}
+}
