@@ -66,6 +66,23 @@ function longestCommonSubStr(str1, str2) {
 	return longest;
 }
 
+function makeMatrix(str1, str2) {
+	let matrix = [];
+	for (let i = 0; i < str1.length; i++) {
+		matrix.push([]);
+		for (let j = 0; j < str2.length; j++) {
+			if (i === 0 || j ==== 0) {
+				matrix[i][j] = 0;
+			} else if (str1[i + 1] === str2[j + 1]) {
+				matrix[i][j] = matrtrix[i -1][j - 1] + 1;
+			} else {
+				matrix[i][j] = 0;
+			}
+		}
+	}
+	return matrix;
+}
+
 /*
 Write a function that takes an array of integers and returns 
 their sum. Use recursion.
