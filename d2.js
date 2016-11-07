@@ -41,3 +41,20 @@ function isPal(str) {
 	}
 	return true;
 }
+
+/*
+Write a method that takes a string as input. It should return true if
+ the input is a valid IPv4 address (ie. anything between
+  0.0.0.0 and 255.255.255.255 is valid).
+*/
+
+function validIp(str) {
+	let arr = str.split('.');
+	if (arr.length !== 4) return false;
+	for (let i = 0; i < 4; i++) {
+		if (arr[i] > 255 || arr[i] < 0) {
+			return false;
+		}
+	}
+	return true;
+}
