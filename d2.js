@@ -52,9 +52,23 @@ function validIp(str) {
 	let arr = str.split('.');
 	if (arr.length !== 4) return false;
 	for (let i = 0; i < 4; i++) {
-		if (arr[i] > 255 || arr[i] < 0) {
+		let curr = parseInt(arr[i]);
+		if (isNaN(curr)|| curr > 255 || curr < 0) {
 			return false;
 		}
 	}
 	return true;
+}
+
+/* You are given an array and a random number generator. Shuffle the array.
+*/
+
+function shuffle(array) {
+	for (let i = 0; i < array.length; i++) {
+		let randIdx = Math.floor(Math.random() * (array.length  - i)) + i ;
+		let tmp = array[randIdx];
+		array[randIdx] = array[i];
+		array[i] = tmp;
+	}
+	return array;
 }
