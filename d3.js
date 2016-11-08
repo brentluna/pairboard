@@ -29,11 +29,7 @@ function foldingCipher(str) {
 
 function swapChar(char) {
 	let val = char.charCodeAt();
-	let diff = 97 - val;
-	if (diff < 13) {
-	 	return String.fromCharCode(diff + (26 - diff) + 96);
-	} else {
-		return String.fromCharCode(26 - diff + 96);
-	}
+	let diff = val - 97;
+	return String.fromCharCode(26 - diff + 96)
 }
 

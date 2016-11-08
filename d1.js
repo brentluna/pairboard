@@ -68,12 +68,12 @@ function longestCommonSubStr(str1, str2) {
 
 function makeMatrix(str1, str2) {
 	let matrix = [];
-	for (let i = 0; i < str1.length; i++) {
+	for (let i = 0; i < str1.length + 1; i++) {
 		matrix.push([]);
-		for (let j = 0; j < str2.length; j++) {
+		for (let j = 0; j < str2.length + 1; j++) {
 			if (i === 0 || j === 0) {
 				matrix[i][j] = 0;
-			} else if (str1[i + 1] === str2[j + 1]) {
+			} else if (str1[i - 1] === str2[j - 1]) {
 				matrix[i][j] = matrix[i -1][j - 1] + 1;
 			} else {
 				matrix[i][j] = 0;
