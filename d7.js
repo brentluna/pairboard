@@ -40,14 +40,12 @@ function nonCompSort2(arr, N) {
 }
 
 function nonCompSort3(arr, k) {
-	console.log(arr, k)
 	for (let i = k - 1; k >= 0; k--) {
 
 		let buckets = [];
 		for (let j = 0; j < 26; j++) {
 			buckets.push([]);
 		}
-		console.log(buckets, arr);
 
 		arr.forEach(str => {
 			let letterIdx = str[i].charCodeAt() - 'a'.charCodeAt();
@@ -57,4 +55,22 @@ function nonCompSort3(arr, k) {
 
 	}
 	return arr;
+}
+
+/* 
+Given an array, write a function that will return a random index of the array. 
+The probability of an index being returned is weighted by the value at that 
+index against the sum of the array values. For example, for the array 
+[4, 6, 8], index 0 should be returned with 4 in 18 odds, index 1 should be 
+returned with 6 in 18 odds, and index 2 should be return with 8 in 18 odds.
+ Implement this in O(n) time.
+ */
+function weightedRandomIndex(arr) { 
+	let sum = arr.reduce((a, b) => a + b);
+	let rand = Math.floor(Math.random() * sum)
+	let cummulativeSum = 0;
+	for (let i = 0; i < arr.length; i++) {
+		cummulativeSum += arr[i];
+		if (rand < cummulativeSum) return i;
+	}
 }
