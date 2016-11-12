@@ -82,6 +82,48 @@ function kClosestStars(stars, k) {
   return kClosest;
 }
 
+/*
+Implement a stack with a method max that returns the maximum value of the stack. 
+max should run in O(1) time, no matter what operations are performed on the stack.
+*/
+
+class MaxStack() {
+
+	constructor() {
+		this.store = [];
+	}
+
+	max() {
+		return this.store[this.length() - 1].max;
+	}
+
+	push(val) {
+
+		if (this.store.length) {
+			let newMax = Math.max(val, this.max());
+			let newVal = {val: val, max: newMax};
+			this.store.push(newVal);
+		} else {
+			let newVal = {val: val, max: val};
+			this.store.push(newVal);
+		}
+		return this.peek();
+	
+	}
+
+	pop() {
+		let popped = this.store.pop;
+		return popped.val;
+	}
+
+	peek() {
+		return this.store[this.length() - 1].val;
+	}
+
+	length() {
+		return this.store.length;
+	}
+}
 
 /* 
 mplement a stack with a method max that returns the maximum value of the stack. max should 
