@@ -24,15 +24,15 @@ file_list(files) # => ['a/b/c/d/e', 'a/b/c/f']
 */
 
 function hashDict(hash) {
-	let result = [];
-	for (let file in files) {
-		let currStr = '';
-		if (typeof files[file] === Object) {
-			currStr += file;
-			let prev = hashDict(files[file]);
-			
+	let files = [];
+	for (let el in hash) {
+		let nestedItem = hash[el];
+		if (typeof nestedItem === Object) {
+			let nestedFiles = hashDict(nestedItem);
+			nestedFiles.forEach(file => files.push(`${el}/${file}`))
 		} else {
-
+			files.push(el);
 		}
 	}
+	return files;
 }
