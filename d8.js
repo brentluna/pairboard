@@ -151,6 +151,134 @@ class StackQueue {
 			let popped = this.in.pop();
 			this.out.push(popped);
 		}
-
 	}
+
+}
+
+/*
+Given an array, and a window size w, find the maximum max - min within a range of 
+w elements.
+
+For instance:
+
+windowed_max_range([1, 0, 2, 5, 4, 8], 2) == 4 # 4, 8
+windowed_max_range([1, 0, 2, 5, 4, 8], 3) == 5 # 0, 2, 5
+windowed_max_range([1, 0, 2, 5, 4, 8], 4) == 6 # 2, 5, 4, 8
+# still 6!
+windowed_max_range([1, 3, 2, 5, 4, 8], 5) == 6 # 3, 2, 5, 4, 8
+
+You can write a naive version that considers all subarrays of size w. 
+However, if w = n/2 then there are n/2 subarrays of length n/2 to consider. 
+Therefore, I would call this solution quadratic. Write it anyway :-)
+
+Let's improve it to O(n). Here are some hints:
+
+First solve MaxStack. Could you write simply a MinMaxStack to track both 
+the min and the max in a stack?
+
+Next, solve StackQueue. Could you use your MinMaxStack to write a 
+MinMaxStackQueue which tracks both the min and max.
+Last, can you use your MinMaxStackQueue to solve the problem?
+*/
+
+function windowMaxRange1(arr, w) {
+	let max = 0;
+	for(let i = 0; i < arr.length - w; i++) {
+		let sum = 0;
+		for (let j = i + 1; j < i + w; j++) {
+			sum += arr[j];
+		}
+		if (sum > max) {
+			max = sum;
+		}
+	}
+	return max;
+}
+
+
+function windowMaxRange2(arr, w) {
+	let minMaxSQ = new MinMaxStackQueue();
+	for (let i = 0; i < w; i++) {
+		let arrVal = arr.pop();
+		minMaxSQ.enqueue(arrVal);
+	}
+	let max = minMaxSQ.max() - minMaxSQ.min();
+	while (arr.length) {
+		minMaxSQ.dequeued();
+		let currVal = arr.pop();
+		minMaxSQ.enqueue(currVal);
+		let currMax = minMaxSQ.max() - minMaxSQ.min();
+		if (currMax > max) {
+			max = currMax;
+		}
+	}
+	return max;
+
+}
+
+class MinMaxStack {
+	constructor() {
+		this.store = [];
+	}
+
+	push(val) {
+		if (this.store.length) {
+			let newMin = val < this.min() ? val : this.min();
+			let newMax = val < this.max() ? this.max() : val;
+			this.store.push({val: val, max: newMax, min: newMin});
+		} else {
+			this.store.push({val: val, min: val, max: val});
+		}
+		return val;
+	}
+
+	pop() {
+		let popped = this.store.pop();
+		return popped.val;
+	}
+
+	max() {
+		if (!this.store.length) return null;
+		return this.store[this.store.length - 1].max;
+	}
+
+	min() {
+		if (!this.store.length) return null;
+		return this.store[this.store.length - 1].min;
+	}
+
+	length() {
+		return this.store.length;
+	}
+}
+
+class MinMaxStackQueue {
+	constructor() {
+		this.in = new MinMaxStack();
+		this.out = new MinMmaxStack();
+	}
+
+
+	enqueue(val) {
+		this.in.push(val);
+	}
+
+	dequeue() {
+		if (!this.in.length() && this.out.length()){
+			return 'empty'
+		} else if (!this.out.length) {
+			this.swapStacks();
+		}
+		let dequeued = this.out.pop();
+		return dequeued.val;
+	}
+
+	max() {
+		return Math.max(this.in.max(), this.out.max());
+	}
+
+	min() {
+		return Math.min(this.in.min(), this.out.min());
+	}
+
 }
