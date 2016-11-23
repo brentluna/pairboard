@@ -40,3 +40,42 @@ function fiftyTrucks() {
 
   return miles;
 }
+
+/*
+ 
+Consider a linked list. Each link in the list holds a next reference to the next item
+in the list, except for the final link, which points to nil.
+
+It is possible to have a "list" without any end, which loops back on itself. Possibilities:
+
+A -> B -> C -> A -> ...
+A -> B -> C -> B -> ...
+Write a method cyclic?(first_link), which will return true if a list is cyclic.
+Your first version may use O(n) memory. Next, write a version which uses O(1) memory;
+ you'll probably need a different approach.
+*/
+
+function cyclic1(root) {
+  let seen = {root: true};
+  let currNode = root;
+  while (currNode) {
+    if (seen[currNode]) return true;
+    seen[currNode] = true;
+    currNode = currNode.next;
+  }
+  return false;
+}
+
+function cyclic2(root) {
+  let slow = root;
+  let fast = root.next;
+  while (slow || fast) {
+    for (let i = 0; i < 2; i++) {
+      fast = fast.next;
+      if (fast == slow) return true;
+      if (!fast) return false;
+    }
+    slow = slow.next;
+  }
+  return false;
+}
