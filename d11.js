@@ -79,3 +79,71 @@ function cyclic2(root) {
   }
   return false;
 }
+
+
+/*
+Given two singly-linked lists of (possibly) differing lengths that converge at some point,
+find the node at which they converge.
+*/
+
+function convergingNode(node1, node2) {
+  let node1Length = 0;
+  let node2Length = 0;
+  let currNode1 = node1;
+  let currNode2 = node2;
+
+  while (currNode1 || currNode2) {
+    if (currNode1) {
+      node1Length++;
+      currNode1 = currNode1.next; 
+    }
+    if (currNode2) {
+      node2Length++;
+      currNode2 = currNode2.next;
+    }
+  }
+  let shortest = node1Length > node2Length ? node2 : node1;
+  let longest= node1Length < node2Length ? node2 : node1;
+  
+
+  let lengthDiff = Math.abs(node1Length - node2Length);
+  for (let i = 0; i < lengthDiff; i++) {
+    shortest = shortest.next; 
+  }
+  while (shortest && longest) {
+    if (shortest === longest) return shortest;
+    shortest = shortest.next;
+    longest = longest.next;
+  }
+  return null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
