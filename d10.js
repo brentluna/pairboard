@@ -107,15 +107,16 @@ function pSub1(str) {
 }
 
 
-function greatestPSub(str){
-  let greatest = str[str.length - 1];
+function greatestPSub(str) {
+  let greatest = [str[str.length - 1]];
   for (let i = str.length - 2; i > 0; i--) {
     if (str[i] > greatest[0]) {
-      greatest = str[i] + greatest;
+      greatest.push(str[i]);
     }
   }
-  return greatest;
+  greatest.reverse();
+  return greatest.join('');
 }
 
 
-hello
+
