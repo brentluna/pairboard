@@ -32,3 +32,26 @@ function leftMostNode(node) {
    }
   }
 }
+
+/*
+ Write a JavaScript function to check if a binary tree is balanced. A tree is balanced
+ if, at every node, the depth of subtree on the left hand side is equal to the depth of
+ the subtree on the right (plus or minus one).
+ */
+
+function isBalanced(node) {
+  return isBalancedNode(node).balanced;
+}
+function isBalancedNode(node) {
+  if (!node) {
+    return {balanced: true, depth: -1};
+  }
+
+  let left = isBalancedNode(node.left);
+  let right = isBalancedNode(node.right);
+  if (left.balanced && right.balanced && Math.abs(left.depth - right.depth) <= 1) {
+    return {balanced: true, depth: Math.max(left.depth, right.depth) + 1};
+  } else {
+    return {isBalanced: false, depth: 0}
+  }
+} 
