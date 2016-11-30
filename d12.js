@@ -74,7 +74,29 @@ function isBST(root, min = null, max = null) {
 
   return isBST(left, min, root.value) && isBST(right, root.value, max);
   
-
-
 }
 
+/*
+ Find the lowest common ancestor of two nodes in a binary search tree. Write the
+ function in JS. Assume I give you both the root and the two nodes.
+*/
+
+function lowestCommonAncestor(root, node1, node2) {
+  let currNode = root;
+  let max = Math.max(node1.val, node2.val);
+  let min = Math.min(node1.val, node2.val);
+
+  while (currNode) {
+    if (currNode === node1 || currNode === node2) {
+      return currNode;
+    } else if (currNode.val >= min && currNode.val <= max) {
+      return currNode;
+    } else if (currNode > max) {
+      currNode = currNode.left;
+    } else {
+      currNode = currNode.right;
+    }
+  }
+
+  return null;
+}
