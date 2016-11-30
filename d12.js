@@ -55,3 +55,26 @@ function isBalancedNode(node) {
     return {isBalanced: false, depth: 0}
   }
 } 
+
+
+/*
+ Given a binary tree, write a function to check whether it's a binary search tree or not
+ */
+
+function isBST(root, min = null, max = null) {
+  if (!root) {
+    return true;
+  }
+
+  if ((min && min  > root.value) || (max && max < root.value)) {
+    return false;
+  }
+  let left = root.left
+  let right = root.right;
+
+  return isBST(left, min, root.value) && isBST(right, root.value, max);
+  
+
+
+}
+
