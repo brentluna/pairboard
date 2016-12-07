@@ -71,3 +71,107 @@ class Word {
   }
 
 }
+
+
+
+
+/*
+ Given a square matrix in the form of a 2D array-of-arrays, return an array consisting
+ of the values of the array in "spiral order" (top row, then right hand side, then bottom in
+ reverse, then up, the back again...).
+ */
+
+Array.prototype.rotate = function() { 
+  let first = this[0];
+  let rest = this.slice(1);
+  rest.push(first);
+  return rest; 
+}
+
+
+function updateIdx(idx, delta, reverse = false) {
+  let newIdx;
+  if (reverse) {
+    newIdx = [idx[0] - delta[0], idx[1] - delta[1]];
+  } else {
+    newIdx = [idx[0] + delta[0], idx[1] + delta[1]];
+  }
+  
+  return newIdx;
+}
+
+function spiral(matrix) {
+  let deltas = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  let counter = 0;
+  let result = [];
+  let currIdx = [0, 0];
+  while (counter < 2) {
+   if (matrix[currIdx[0]] && matrix[currIdx[0]][currIdx[1]]) {
+
+      counter = 0;
+      result.push(matrix[currIdx[0]][currIdx[1]]);
+      matrix[currIdx[0]][currIdx[1]] = null;
+      currIdx = updateIdx(currIdx, deltas[0]);
+    } else {
+      counter++;
+      currIdx = updateIdx(currIdx, deltas[0], true);
+      deltas =  deltas.rotate();
+      currIdx = updateIdx(currIdx, deltas[0]);
+    }    
+  }
+  return result;
+}
+
+let matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
