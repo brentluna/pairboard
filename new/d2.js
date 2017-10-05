@@ -16,3 +16,35 @@ const fibsRec = num => {
   prevFibs.push(newVal)
   return prevFibs;
 }
+
+const isPalindrome = str => {
+  const strLength = str.length;
+  for (let i = 0; i < Math.floor(strLength / 2) + 1; i++) {
+    if (str[i] !== str[strLength - i - 1]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+const validIp = ip => {
+  const ipArray = ip.spit('.');
+  if (ipArray.length !== 4) { return false; }
+  for (let i = 0; i < 4; i++) {
+    let currSeg = ipArray[i];
+    if (parseInt(currSeg) > 255 && parseInt(currSeg) < 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const shuffle = array => {
+ let shuffled = [];
+ while (array.length > 1) {
+   let idx = Math.floor(Math.random() * (array.length + 1));
+   shuffled = shuffled.concat(array.splice(idx, 1))
+ }
+  return shuffled.concat(array)
+}
