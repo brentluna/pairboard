@@ -6,3 +6,14 @@ Array.prototype.myMap = function(callback){
   return mapped;
 } 
 
+const foldingCipher = str => {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    result += translate(str[i])
+  }
+  return result;
+}
+
+const translate = char => {
+  return String.fromCharCode(27 - (char.charCodeAt() - 96)  + 96)
+}
