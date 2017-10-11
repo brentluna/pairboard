@@ -17,3 +17,5 @@ const foldingCipher = str => {
 const translate = char => {
   return String.fromCharCode(27 - (char.charCodeAt() - 96)  + 96)
 }
+
+
