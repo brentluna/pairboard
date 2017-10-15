@@ -108,3 +108,37 @@ const longestPal = str => {
   }
   return longestStart; 
 }
+
+const fastIntersec =  (arr1, arr2) => {
+  let seen = {};
+  let inter = [];
+  arr1.forEach(el => {
+    seen[el] ? seen[el] = seen[el] + 1 : seen[el] = 1
+  });
+  arr2.forEach(el => {
+      if (seen[el] && seen[el] > 0) {
+        inter.push(el);
+        seen[el] = seen[el] - 1;
+      } 
+  });
+  return inter;
+}
+
+const subsets = arr => {
+  if (!arr.length) { return [[]] }
+  let first = arr[0];
+  let rest = arr.slice(1);
+  let subs = subsets(rest);
+  let newSubs = subs.map(el => el.concat(first))
+  return newSubs.concat(subs)
+}
+
+const commonSubs = (arr1, arr2) => {
+  return fastIntersec(subsets(arr1), subsets(arr2))
+}
+
+const canWin = (arr, idx, seen={}) => {
+  if ((arr[idx] !== 0 && seen[idx]) || (idx < 0 || idx >= arr.length)){ return false }
+  if (arr[idx] === 0) { return true; }
+  return canWin(arr, idx + arr[idx], seen) || canWin(arr, idx - arr[idx], seen)
+}
