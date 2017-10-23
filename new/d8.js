@@ -177,7 +177,11 @@ class MinMaxStackQueue {
   }
 
   min() {
-    return this.in.min() < this.out.min() ? this.in.min() : this.out.min();
+    if (this.in.min() && this.out.min()){
+      return this.in.min() < this.out.min() ? this.in.min() : this.out.min();
+    } else {
+      return this.in.min() > this.out.min() ? this.in.min() : this.out.min();
+    }
   }
 
   length() {
@@ -188,13 +192,15 @@ class MinMaxStackQueue {
 
 const maxWindow2 = (arr, k) => {
   let queue = new MinMaxStackQueue();
-  while (queue.length < k) {
+  while (queue.length() < k) {
     queue.enqueue(arr.shift());
   }
+  console.log(queue)
   let diff = queue.max() - queue.min();
   while (arr.length) {
     queue.dequeue();
     queue.enqueue(arr.shift());
+    debugger
     let newDiff = queue.max() - queue.min()
 
     if (diff < newDiff) { diff = newDiff }
